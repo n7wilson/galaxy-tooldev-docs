@@ -120,8 +120,8 @@ none            100M     0  100M   0% /run/user
 (6) Install the SMC-Het example on the VM.
 ```
 cd /opt/galaxy/tools
-git clone https://github.com/Sage-Bionetworks/SMC-Het-Challenge.git
-cd SMC-Het-Challenge
+git clone https://github.com/Sage-Bionetworks/SMC-Het-Challenge-Examples.git
+cd SMC-Het-Challenge-Examples
 ```
 
 (7) Restart Galaxy and Docker.
