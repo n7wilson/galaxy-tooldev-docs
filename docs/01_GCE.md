@@ -77,12 +77,13 @@ ${image?fileName=Google_Developer_SSH.png}
 
     We do all of the commands that follow as user `ubuntu` on the VM.  Change to this user.
 ```
-sudo su ubuntu
+$ sudo su ubuntu
 ```
 
-    Run the following command to find the disk (look for the one with the name you chose when creating the disk).
+    Run the following command to find the disk and make sure it is properly installed. There should be 3 files found: < VM instance >, < VM instance >-data, and < VM-instance >-part1
 ```
-ubuntu@planemo:~$ ls -l /dev/disk/by-id/google-*
+$ ls -l /dev/disk/by-id/google-*
+
 lrwxrwxrwx 1 root root  9 May  8 23:02 /dev/disk/by-id/google-planemo ->  ../../sda
 lrwxrwxrwx 1 root root 10 May  8 23:02 /dev/disk/by-id/google-planemo-data -> ../../sda1
 lrwxrwxrwx 1 root root  9 May  8 23:03 /dev/disk/by-id/google-planemo-part1 -> ../../sdb
@@ -90,7 +91,8 @@ lrwxrwxrwx 1 root root  9 May  8 23:03 /dev/disk/by-id/google-planemo-part1 -> .
 
     Make sure the `/opt/galaxy/tools` directory is empty.
 ```
-ubuntu@planemo:~$ ls -l /opt/galaxy/tools
+$ ls -l /opt/galaxy/tools
+
 total 0
 ```
     Mount and format the disk.
@@ -100,12 +102,13 @@ $ sudo /usr/share/google/safe_format_and_mount -m "mkfs.ext4 -F" /dev/sdb /opt/g
 
     Set ownership of the disk to user `ubuntu`.
 ```
-ubuntu@planemo:~$ sudo chown -R ubuntu /opt/galaxy/tools
+$ sudo chown -R ubuntu /opt/galaxy/tools
 ```
 
     Now your external disk should be mounted by the VM.
 ```
-ubuntu@planemo:~$ df -h
+$ df -h
+
 Filesystem      Size  Used Avail Use% Mounted on
 /dev/sda1       9.9G  3.1G  6.3G  33% /
 none            4.0K     0  4.0K   0% /sys/fs/cgroup
@@ -119,15 +122,15 @@ none            100M     0  100M   0% /run/user
 
 (6) Install the SMC-Het example on the VM.
 ```
-cd /opt/galaxy/tools
-git clone https://github.com/Sage-Bionetworks/SMC-Het-Challenge-Examples.git
-cd SMC-Het-Challenge-Examples
+$ cd /opt/galaxy/tools
+$ git clone https://github.com/Sage-Bionetworks/SMC-Het-Challenge-Examples.git
+$ cd SMC-Het-Challenge-Examples
 ```
 
 (7) Restart Galaxy and Docker.
 ```
-sudo service docker restart
-sudo supervisorctl restart galaxy:
+$ sudo service docker restart
+$ sudo supervisorctl restart galaxy:
 ```
 
 (8) Go back to the Developers Console and click the little pop-out arrow to the right of theexternal IP address for the instance.  Your browser will be redirected the the home page for Galaxy on your VM.
@@ -136,18 +139,27 @@ ${image?fileName=Galaxy_Home_Page.png}
 
 (9) Upload data.
 
-    If you require reference data to run your program, you can upload it to the instance by hitting the upload button and then selecting 'Paste/Fetch Data' and telling galaxy to download the file
+    There are two ways to upload data to galaxy: from your local machine or from a website URL
+
+    1. Local Data: Click the upload button: ${image?fileName=upload_button.png}, click 'Choose local file', and then select the desired file.
+    2. Online Data: Click the upload button: ${image?fileName=upload_button.png}, click 'Paste/Fetch Data', and then input the URL of the data file.
+
+    For this example we will use the 'test_vcf.vcf' file found in the SMC-Het-Challenge github at 'https://raw.githubusercontent.com/Sage-Bionetworks/SMC-Het-Challenge/master/data/test_vcf.vcf'
+
 ${image?fileName=Galaxy_upload_Data.png}
 
 (10) Run the workflow.
 
     1. Select the DPC tool in the left hand tool panel
+
+${image?fileName=Galaxy_DPC_Tool.png}
+
     2. Find the downloaded VCF file in the 'VCF file' selection in the center panel
     3. Click the Execute button at the bottom of the form
     4. The output data files should appear in the data history panel on the right hand side of the screen
 
-    TODO: ensure this step works
-    TODO: screenshot of completed run of the workflow.
+${image?fileName=Galaxy_DPC_Results.png}
+
 
 Ta da!  You have set up your Google Compute engine virtual machine running Galaxy and executed the sample workflow.
 
