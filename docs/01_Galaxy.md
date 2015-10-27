@@ -6,6 +6,7 @@ ${youtube?videoId=W8gBki65g0c}
 
 How to do tool development using the VM
 ${youtube?videoId=12TMLO8tEdM}
+*Note: the 'restart_galaxy' command used in the video is an alias for 'sudo supervisorctl restart galaxy:'. If you get the error 'restart_galaxy: command not found' then use this command instead.*
 
 Learning Galaxy
 ===============
