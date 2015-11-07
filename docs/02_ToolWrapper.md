@@ -1,34 +1,30 @@
 
 ${toc}
 
-In addition to a runtime environment, which has been defined by Docker, a tool needs some form of wrapper script and parameter file so that other people will know how to interface with it.  These configuration files should contain all the command line parameters and parallelization directives necessary to run the tool in a production environment. The wrapper is an XML file defined by the Galaxy Tool Syntax, and it will usually be accompanied by runner scripts that do small amount of run time preparation, like creating configuration files or running data preparation commands.
-
-Each tool wrapper configuration includes
+In addition to a runtime environment, which has been defined by Docker, each tool needs an XML file that defines all the parameters that will be needed to run the tool.
+Each XML file should specify:
 1. The tool name, id and version number
 2. Environmental requirements, ie the name of the Docker container
-3. Input files and parameters
+3. Input files and input parameters
 4. Output files
-5. A templated command line to be execute in the container for the given inputs and outputs
+5. A command line function to be executed in the container for the given inputs and outputs
 
-Optional Sections of the Tool Configuration include
+> The command line function can be the main file for the program you have written, if this file can be called from the command line. However it is more common to use a wrapper script that takes command line input, formats it, and then calls your program. Details on how to write a wrapper script are found below.
+
+> Note on naming: the XML file used with your Galaxy tool is often called a 'Galaxy Tool Wrapper', however we will refrain from using that terminology to avoid confusion between a Galaxy XML file and a wrapper script (written in a scripting language) used to execute your program in Galaxy.
+
+Optional Sections to include in the XML file
 1. Configuration file creation
 2. Unit tests
 3. Documentation and help
 
-Tutorials and Docs
-------------------
+More information on what you can include in an XML file can be found in the __Syntax for Galaxy XML File__ below under Tutorials and Docs.
 
-[Galaxy Tool Config Syntax](https://wiki.galaxyproject.org/Admin/Tools/ToolConfigSyntax)
 
-A quick introduction to the [Galaxy Tool Wrapper](http://www.slideshare.net/pjacock/galaxy-tools)
-
-A video introduction to [Galaxy Tool Integration](http://screencast.g2.bx.psu.edu/toolIntegration/). The introduction of this video doesn't apply to the Planemo SDK VM. Information related to tool development starts at around minute 4.
-
-Template
+Basic XML Template
 --------
 
-If your tool is very simple and you don't want to spend a lot of time working on
-a XML definition for it, you can use the template:
+If your tool is fairly simple you can use the XML template here instead of creating your own:
 
 ```
 <tool id="simple_tool" name="My Simple Tool" version="1.0.0">
@@ -72,101 +68,158 @@ You should totally explain how to use your tool here
 </tool>
 
 ```
+You can also download this template file directly: ${previewattachment?fileName=smc-het-xml-template.xml}
 
+Follow the instructions at the top of the file to modify this template for your own tool.
 
-Tool Wrapper Stanzas
---------------------
-Every wrapper has required stanzas needed to fully describe how to interface with the tool.
+##Writing Your Own XML File
+###Tutorials and Docs
+There are a number of resources you can find around the web for writing XML files for Galaxy and even more for writing XML files in general. Here are two that will help you get started:
 
-1. The Header: tool name, tool ID and tool version
-2. Requirements: declaration of the software requirements needed to run the tool. In the case of the SMC-Het challenge, this must be a declaration of a Docker container
-3. Command line: a template for the command line that will be filled out by a templating engine at run time to container the correct parameter values and file paths.
-4. Input declaration: All of the input parameters and files that will be passed to the program
-5. Output declaration: All of the files that will be outputted by the program
+__How to Write a Galxay XML File__
+[http://www.slideshare.net/pjacock/galaxy-tools](http://www.slideshare.net/pjacock/galaxy-tools)
 
-Example Wrapper
---------------
-You can find two example tool wrappers that are part of the [SMC-Het-Challenge package](https://github.com/Sage-Bionetworks/SMC-Het-Challenge).
-The first, the [DPC example](https://github.com/Sage-Bionetworks/SMC-Het-Challenge/blob/master/dpc/dpc.xml), is a simple tool wrapper that is a simple wrapper that defines the input and outputs and how to call the dpc.R script.
+__Syntax for Galaxy XML File__
+[https://wiki.galaxyproject.org/Admin/Tools/ToolConfigSyntax](https://wiki.galaxyproject.org/Admin/Tools/ToolConfigSyntax)
+
+__Sample XML File Template__
+[https://wiki.galaxyproject.org/Tools/SampleToolTemplate?action=show&redirect=Admin%2FTools%2FExampleXMLFile](https://wiki.galaxyproject.org/Tools/SampleToolTemplate?action=show&redirect=Admin%2FTools%2FExampleXMLFile)
+
+If you are looking for more resources you can search the [Galaxy wiki page](https://wiki.galaxyproject.org/FrontPage)
+
+###XML File Stanzas
+Every XML file has certain stanzas that are required to fully describe how to interface with the tool:
+
+1. Header (<tool>) - tool name, tool ID and tool version
+2. Requirements (<requirements>) - declaration of the software requirements needed to run the tool. In the case of the SMC-Het challenge, this must be a declaration of a Docker container
+3. Command Line Call (<command>) - a template for the command line that will be filled out by a templating engine at run time to container the correct parameter values and file paths.
+4. Inputs (<inputs>) - All of the input parameters and files that will be passed to the program
+5. Outputs (<outputs>) - All of the files that will be outputted by the program
+
+You can also include other stanzas on top of these if you wish. In particular, it is a good idea to include the <help> stanza with information on the usage of your tool.
+
+###Example XML File
+Both of the example Galaxy tools that are provided in the [SMC-Het-Challenge package](https://github.com/Sage-Bionetworks/SMC-Het-Challenge-Examples) contain Galaxy XML files that you can use as examples.
+
+The [DPC example](https://github.com/Sage-Bionetworks/SMC-Het-Challenge-Examples/blob/master/dpc/dpc.xml) is the simpler of the two:
 ```
 <tool id="dpc" name="VCF DPC" version="1.0.0">
-  <description>VCF clustering</description>
-  <requirements>
-    <container type="docker">r-base</container>
-  </requirements>
-  <command interpreter="Rscript">
-dpc.R ${input_vcf}
-  </command>
+	<description>VCF clustering</description>
+	<requirements>
+		<container type="docker">r-base</container>
+	</requirements>
+	<command interpreter="Rscript">
+dpc.R ${input_vcf} ${sample_number}
+	</command>
 
-  <inputs>
-    <param format="vcf" name="input_vcf" type="data" label="VCF file" help="" />
-  </inputs>
+	<inputs>
+		<param format="vcf" name="input_vcf" type="data" label="VCF file" help="" />
+		<param type="integer" name="sample_number" label="Sample number" help="The ith sample column in the VCF file" value="1"/>
+	</inputs>
 
-  <outputs>
-    <data format="png" name="output_png" label="DirichletProcessplotBinomial PNG" from_work_dir="DirichletProcessplotBinomial.png"/>
-    <data format="txt" name="output_density" label="DirichletProcessplotBinomial Density" from_work_dir="DirichletProcessplotBinomialdensity.txt"/>
-    <data format="txt" name="output_polygon" label="DirichletProcessplotBinomial Polygon" from_work_dir="DirichletProcessplotBinomialpolygonData.txt"/>
-  </outputs>
+	<outputs>
+		<data format="png" name="output_png" label="DirichletProcessplotBinomial PNG" from_work_dir="DirichletProcessplotBinomial.png"/>
+		<data format="txt" name="cellularity" label="Cellularity (Sub Challenge 1A)" from_work_dir="subchallenge1A.txt"/>
+		<data format="txt" name="no_clusters" label="Number Clusters (Sub Challenge 1B)" from_work_dir="subchallenge1B.txt"/>
+		<data format="txt" name="proportions" label="Cluster Proportions (Sub Challenge 1C)" from_work_dir="subchallenge1C.txt"/>
+		<data format="txt" name="assignments" label="Cluster Assignments (Sub Challenge 2A)" from_work_dir="subchallenge2A.txt"/>
+		<data format="txt" name="co_clustering" label="Co-Cluster (Sub Challenge 2B)" from_work_dir="subchallenge2B.txt"/>
+	</outputs>
 
-  <help>
+	<help>
 You should totally explain how to use your tool here
-  </help>
+	</help>
+
+	<tests>
+		<test>
+		</test>
+	</tests>
 
 </tool>
 ```
-In this wrapper the tool identification is on the line
+
+We can see that all of the information mentioned above is defined in this XML file:
+
+The Header:
 ```
 <tool id="dpc" name="VCF DPC" version="1.0.0">
 ```
-The requirements found in the section
+
+The Requirements:
 ```
   <requirements>
     <container type="docker">r-base</container>
   </requirements>
 ```
-There is a single VCF input file to this tool
+
+The Command Line Call (using a wrapper script, dpc.R, to call the tools main function)
+```
+  <command interpreter="Rscript">
+    dpc.R ${input_vcf}
+  </command>
+```
+
+The Inputs (a vcf file and an integer specifying which sample in the vcf file to use)
+_Notice that the 'name' attribute of each input corresponds to the names used in the Command Line Call above_
 ```
   <inputs>
     <param format="vcf" name="input_vcf" type="data" label="VCF file" help="" />
+    <param type="integer" name="sample_number" label="Sample number" help="The ith sample column in the VCF file" value="1"/>
   </inputs>
 ```
-There are three output files
+
+The Outputs (a picture of the Dirichlet process from executing the tool and five text files for input into the scoring evaluator)
 ```
   <outputs>
     <data format="png" name="output_png" label="DirichletProcessplotBinomial PNG" from_work_dir="DirichletProcessplotBinomial.png"/>
-    <data format="txt" name="output_density" label="DirichletProcessplotBinomial Density" from_work_dir="DirichletProcessplotBinomialdensity.txt"/>
-    <data format="txt" name="output_polygon" label="DirichletProcessplotBinomial Polygon" from_work_dir="DirichletProcessplotBinomialpolygonData.txt"/>
+    <data format="txt" name="cellularity" label="Cellularity (Sub Challenge 1A)" from_work_dir="subchallenge1A.txt"/>
+    <data format="txt" name="no_clusters" label="Number Clusters (Sub Challenge 1B)" from_work_dir="subchallenge1B.txt"/>
+    <data format="txt" name="proportions" label="Cluster Proportions (Sub Challenge 1C)" from_work_dir="subchallenge1C.txt"/>
+    <data format="txt" name="assignments" label="Cluster Assignments (Sub Challenge 2A)" from_work_dir="subchallenge2A.txt"/>
+    <data format="txt" name="co_clustering" label="Co-Cluster (Sub Challenge 2B)" from_work_dir="subchallenge2B.txt"/>
   </outputs>
 ```
 
-Writing Command line templates
-------------------------------
-For the command line, the templating language is Cheetah. The return characters are removed and blank file paths set to empty strings. There should be one command line to run the entire analysis. Variable inputs should be demarcated in the style:
-```
-${variable_name}
-```
+###Command Line Call in an XML
+The Command Line Call section of your XML file is where you actually execute your function. There are two aspects of the Command Line Call that are important to remember:
+1. The Command Line Call uses a templating language called Cheetah to pass variables from your inputs into your command.In Cheetah all variables are identified using `${variable_name}`.
 
-You can find documentation at:
+This should be everything most people need to know to write their XML files but for more information on Cheetah you can find documentation at:
 
 http://www.cheetahtemplate.org/
 http://www.devshed.com/c/a/Python/Templating-with-Cheetah/
 http://www.onlamp.com/pub/a/python/2005/01/13/cheetah.html
 
-Work environment
-----------------
-The command line will be executed in a temporary working directory where you can write temporary files and it will be cleaned out at the end of run. The input and output paths will be set to locations in different directories.
+2. Your Command Line Call should contain only one function call. If you need to call multiple functions you can either use a wrapper script or create an XML file for each function call and manually pass data between functions in Galaxy. For an example of how to do this check out the PhyloWGS tool that is provided in SMC-Het_challenge-Examples.
 
-An important thing to note about Galaxy's parallelization control is the setting/checking of the GALAXY_SLOTS environmental variable in the script above at the line:
+###Input For Your Tool
+All the input files that you specify must come from your Galaxy history. This means that they must either be imported from the given training sets, imported from your local machine, or the result of running another tool. For more information on importing data check out [3.5.0 Quick Start](https://www.synapse.org/#!Synapse:syn2786217/wiki/266669)
+
+###Output From Your Tool
+All the output files that you specify will be saved to your Galaxy history. This makes passing data from one tool to another very easy, as the data will already be in your Galaxy history, where you need it.
+
+###Parallelizing Your Tool
+Galaxy will automatically pick the number of threads to use when trying to parallelize your tool but you can if you want you can specify the number of thread to use using the GALAXY_SLOTS environmental variable:
 ```
--nct \${GALAXY_SLOTS:-4}
+-nct \${GALAXY_SLOTS: N_THREADS}
 ```
-in the Simple Wrapper section.  This allows the number of threads used by the program to be configured by the system, with a default of 4 if it is not defined. Note that the '\$', as the dollar sign character is passed on as a literal to the script (and not evaluated by the template system), this is because
-```
-$GALAXY_SLOTS
-```
-is actually an environmental variable defined at runtime, and not a variable that is filled in by the templating engine. For more notes on parallel process settings see http://galacticengineer.blogspot.co.uk/2015/04/using-galaxyslots-for-multithreaded_22.html
+where N_THREADS is your desired number of thread. GALAXY_SLOTS is set to -4 by default, and this will tell Galaxy to choose the number of threads for you.
+
+_Note: the '\$', as the dollar sign character is passed on as a literal to the script (and not evaluated by the template system) because `$GALAXY_SLOTS` is actually an environmental variable defined at runtime, and not a variable that is filled in by the templating engine._
+
+For more notes on parallel process settings see [http://galacticengineer.blogspot.co.uk/2015/04/using-galaxyslots-for-multithreaded_22.html](http://galacticengineer.blogspot.co.uk/2015/04/using-galaxyslots-for-multithreaded_22.html)
 
 
-Catching Errors
----------------
-See the [Galaxy Tool Configuration docs](https://wiki.galaxyproject.org/Admin/Tools/ToolConfigSyntax), especially the section on the [&lt;stdio&gt;, &lt;regex&gt; and &lt;exit_code&gt; tags](https://wiki.galaxyproject.org/Admin/Tools/ToolConfigSyntax#A.3Cstdio.3E.2C_.3Cregex.3E.2C_and_.3Cexit_code.3E_tag_sets) for details on how to configure error reporting within a Galaxy tool wrapper. The standard method is to look for error exit code. Note, if you are using a BASH script, use the 'set -e' so that any command error will result in the script failing. You can set up a regex to search stderr for failure messages, but this method should not be used by itself, as it may not catch all errors.
+###Catching Errors
+See the [Galaxy Tool Configuration docs](https://wiki.galaxyproject.org/Admin/Tools/ToolConfigSyntax), especially the section on the [&lt;stdio&gt;,
+&lt;regex&gt; and &lt;exit_code&gt; tags](https://wiki.galaxyproject.org/Admin/Tools/ToolConfigSyntax#A.3Cstdio.3E.2C_.3Cregex.3E.2C_and_.3Cexit_code.3E_tag_sets)
+ for details on how to configure error reporting within a Galaxy tool wrapper. The standard method is to look for error exit code.
+ Note, if you are using a BASH script, use the 'set -e' so that any command error will result in the script failing. You can set up a regex to search stderr for failure messages, but this method should not be used by itself, as it may not catch all errors.
+
+#Wrapper Scripts
+Wrapper scripts are programs used to "wrap up" your functions and make them easier to execute. These scripts are executed in the command line. They usually take a number of input variables and fromat them to be passed into a function. Wrapper scripts can be written in a number of different coding languages including SH, Bash, Python, Perl and R among many others.
+
+For more information check out these resources:
+
+[http://mywiki.wooledge.org/WrapperScript](http://mywiki.wooledge.org/WrapperScript)
+[http://tldp.org/LDP/abs/html/wrapper.html](http://tldp.org/LDP/abs/html/wrapper.html)

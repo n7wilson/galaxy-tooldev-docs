@@ -1,6 +1,7 @@
 site_name: Galaxy Tool Dev
 pages:
 - [index.md, Creating Galaxy tools and workflows]
+- [00_QuickStart.md, Introduction, Quick Start]
 - [01_Galaxy.md, Introduction, Tutorials]
 - [01_GCE.md, Introduction, Google Compute Engine]
 - [02_Docker.md, Development, Docker]

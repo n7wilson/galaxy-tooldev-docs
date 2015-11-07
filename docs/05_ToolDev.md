@@ -29,18 +29,18 @@ planemo lint my_cool_tool.xml
 Note: If you think that Galaxy is failing dynamically to reload your tool. Use
 the command
 ```
-restart_galaxy
+sudo supervisoctl restart galaxy:
 ```
 
 Base XML config file
 --------------------
-Rather then start from a blank page, you can use Planemo to populate a stub file you can start filling in.
 
+Rather than start from a blank page, you can use Planemo to populate a stub file you can start filling in.
 ```
-> planemo project_init mytool
+$ planemo project_init mytool
 Creating empty project, this function doesn't do much yet.
-> cd mytool
-> planemo tool_init
+$ cd mytool
+$ planemo tool_init
 Name: MyTool
 Id: mytool
 Tool written to mytool.xml
@@ -73,7 +73,7 @@ More examples of how to use the `tool_init` method can be found at in the [Plane
 Web Based IDE
 -------------
 
-Included in the Planemo VM is an installation of [Codebox](https://www.codebox.io/). You can find it by going to `http://<ip address>`/ide/
+Included in the Planemo VM is an installation of [Codebox](https://www.codebox.io/). You can find it by going to `http://<VM IP address>/ide/`
 
 It automatically loads the the /opt/galaxy/tools directory, which is the same directory Galaxy scans to look for installed tools.
 

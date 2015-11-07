@@ -7,8 +7,8 @@ Download example code
 
 1. Obtain the example tool set
 ```
-git clone https://github.com/Sage-Bionetworks/SMC-Het-Challenge.git
-cd SMC-Het-Challenge
+git clone https://github.com/Sage-Bionetworks/SMC-Het-Challenge-Examples.git
+cd SMC-Het-Challenge-Examples
 ```
 
 2. Navigate to the web server to view the Galaxy UI. On GCE based machines it will

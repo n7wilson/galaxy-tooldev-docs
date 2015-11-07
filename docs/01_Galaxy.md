@@ -1,18 +1,18 @@
 
 Starting out on SMC-Het
 =======================
-For an introduction on how to turn on the development VM using the Google Compute environment.
+#### Environment Setup
+Step-by-step instructions on how to turn on the development VM using the Google Compute environment.
 ${youtube?videoId=W8gBki65g0c}
 
-How to do tool development using the VM
+#### Tool Development
+How to develop and test your own tools for running in Galaxy.
 ${youtube?videoId=12TMLO8tEdM}
-*Note: the 'restart_galaxy' command used in the video is an alias for 'sudo supervisorctl restart galaxy:'. If you get the error 'restart_galaxy: command not found' then use this command instead.*
 
 Learning Galaxy
 ===============
 
-Before you can develop tools for Galaxy, it would be useful to know how people interface with it. There are a number of resources, including screen casts, tutorials and discussion forums that will help you learn how to use Galaxy. Before turning on your down Development VM, you can create an account on the [Public Galaxy Server](https://usegalaxy.org/). If you have any questions about how to use Galaxy or how to develop tools for it, there is a [Biostars](https://biostar.usegalaxy.org/) page where you can post questions and look for answers. To look for resources to help you on your way, look at the [Support Page](https://wiki.galaxyproject.org/Support)
-
+The following videos provide an introduction to the Galaxy client and what you can do with it. To test out Galaxy's functionality you can create an account on the [Public Galaxy Server](https://usegalaxy.org/) and work through some of the examples that Galaxy provides. There are also a number of additional resources on Galaxy's website, including screen casts, tutorials and discussion forums that will help you learn how to use Galaxy. These resources can be found on the [Support Page](https://wiki.galaxyproject.org/Support). If you have any more questions about how to use Galaxy or how to develop tools for it check out the Galaxy forum, [Biostars](https://biostar.usegalaxy.org/).
 ${image?fileName=galaxy_launch_screen.png}
 
 https://wiki.galaxyproject.org/Learn

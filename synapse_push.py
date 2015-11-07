@@ -8,7 +8,7 @@ import cgi
 import json
 
 PROJECT_ID = "syn2786217"
-WIKI_BASE  = "74384"
+WIKI_BASE  = "266668"
 SECTION_BASE = "3.5"
 
 
@@ -48,7 +48,7 @@ def markdown_clean(txt, encoding="utf-8"):
     return txt.encode(encoding)
 
 def find_attachments(doc):
-    tmp = re.findall(r'\${image\?fileName=([^}]+)}', doc)
+    tmp = re.findall(r'\${[image,previewattachement]\?fileName=([^}]+)}', doc)
     return tmp
 
 def load_doc(page):
