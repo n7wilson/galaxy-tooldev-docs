@@ -18,15 +18,24 @@ Galaxy lets you perform data analysis operations, keeping a history of the tools
 ##Creating a Workflow From Scratch
 If you don't want to use your history to create a workflow you can also build one from scratch. To do this:
 1. Select the Workflow menu at the top of the page
+${image?fileName=Galaxy_workflow_menu.png}
 2. Once in the Workflow section, select 'Create new Workflow'
-3. Name your workflow and hit the 'Create' button
-4. Once in the workflow editor, find the tools you want to include in the panel on the lefthand side and click them to create add them to your workflow in the central panel
-7. Create inputs to the workflow by selecting Inputs -> Input dataset at the bottom of the panel on the lefthand side
-5. Connect the tools and input data in the order you want to execute them by dragging 'connection noodles' from the outputs on the right hand side of one tool/dataset to the inputs on the left hand side of the next tool
+3. Name your workflow and hit the 'Create' button.
+${image?fileName=Galaxy_workflow_dpc}
+You will then be brought to the workflow editor.
+${image?fileName=Galaxy_workflow_editor.png}
+4. Once in the workflow editor, find the tools you want to include in the panel on the lefthand side and click them to create add them to your workflow in the central panel (including the evaluator)
+${image?fileName=Galaxy_workflow_editor_tool.png}
+5. Create inputs to the workflow by selecting Inputs -> Input dataset at the bottom of the panel on the lefthand side
+${image?fileName=Galaxy_workflow_editor_input.png}
 6. Edit the tool/dataset names and parameters in the panel on the righthand side
-7. Save your workflow by clicking Settings (the gear button in the top righthand corner of the central pane) -> Save
-TODO: Add in pictures to show how to do this with the PHyloWGS tool
-TODO: add the PhyloWGS workflow to Galaxy
+_Note: you will need to modify the attributes of the evaluator to accept input for whatever subchallenges you are submitting to._
+${image?fileName=Galaxy_workflow_editor_attributes.png}
+7. Connect the tools and input data in the order you want to execute them by dragging 'connection noodles' from the outputs on the right hand side of one tool/dataset to the inputs on the left hand side of the next tool.
+Click the '*' next to the evaluator output to indicate that this is the final step in the workflow.
+${image?fileName=Galaxy_workflow_editor_connections.png}
+8. Save your workflow by clicking Settings (the gear button in the top righthand corner of the central pane) -> Save
+TODO: add the PhyloWGS/DPC workflow to Galaxy
 
 
 ##Workflow Requirements
@@ -45,36 +54,34 @@ To create a workflow that can be used by the evaluation system you need to:
 
 ${image?fileName=create_workflow.gif}
 
-Test the workflow
------------------
+##Test the workflow
 
-Submit the workflow
--------------------
-
-The code for submitting code to the challenge can be found at https://github.com/Sage-Bionetworks/SMC-Het-Challenge to install:
-```
-git clone https://github.com/Sage-Bionetworks/SMC-Het-Challenge.git
-```
-
-This code includes the script `dream_galaxy_submit` which will scan a workflow URL stored on a Galaxy instance, download the relevant tools and data, and then upload them to a Synapse directory.
-
-The first step is to get the download URL of the workflow. To find it:
-
-1. Go to the `Workflow` panel
-2. Click the name of the workflow to be submitted
-3. When the dropdown menu appears select 'Share or Publish'
-4. If it exists, click the button `Make Workflow Accessible via Link`
-5. Below the text `Anyone can view and import this workflow by visiting the following URL` there will be the text of a URL. This is the URL you will provide to the submission program
+Once you have created a workflow you can test it in Galaxy by going to the Analyze Data tab, selecting Workflows -> All workflows in the lefthand panel and finding your workflow.
+{image?fileName=Galaxy_workflow_run.png}
+You can then execute your workflow by clicking your workflow, passing in the necessary inputs and then clicking 'Run workflow'.
+{image?fileName=Galaxy_workflow_run_with_inputs.png}
 
 
-Next you will need your Galaxy API key:
-1. On the Top 'User' menu, select 'API Keys'
-2. Copy the value in the 'Current API key' field
-3. If the value is 'none set', then click `Generate a new key now` and copy the produced value
+##Submit the workflow
 
-You can now run the `dream_galaxy_submit` program
-```
-./dream_galaxy_submit \
---workflow http://128.114.61.142:9999/u/dev/w/smc-het-file \
---apikey ec713e37df8cdf5e9ffdd97c5c56bab1 --project-id syn2751753
-```
+To submit your workflow go to <External IP address>/submit/ where <External IP address> is the IP address associated with your VM instance (the IP address of your copy of Galaxy).
+This IP address can be found in your either:
+* in the URL of your Galaxy instance or
+* in your [Google Developers Console](https://console.developers.google.com) by going to Compute -> Compute Engine -> VM instances and looking at the External IP column for your VM instance.
+
+${image?fileName=Galaxy_submit.png}
+
+> Currently there is no way of accessing the submission form from Galaxy directly
+
+Once you are on the submit page select the workflow that you would like to submit and click 'Start Submission'. This will bring you to the submission form for SMC-Het:
+
+${image/fileName=Galaxy_submission_form.png}
+
+At the top of this form you will need to fill out three fields with information from your Synapse account:
+* Your Synapse email (found in your profile page on Synapse under Settings)
+* Your Synapse API Key (found in your profile page on Synapse under Setting by clicking 'Show API Key')
+* The Synapse Project ID for the SMC-Het Challenge (found in the top-left corner of this page under Synapse ID)
+
+You will then need to fill out a short survey on the details of your algorithm. This information will be used to aid in post-challenge analysis and will be incredibly useful for future projects that use the results of the Challenge.
+
+Once you have completed the survey click the 'Submit' button at the bottom of the page to complete your submission.
