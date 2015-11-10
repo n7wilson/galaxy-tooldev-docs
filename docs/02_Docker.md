@@ -2,7 +2,13 @@
 Developing a Docker Container
 =============================
 ${image?fileName=docker_logo.png}
-To run an analysis tool in a cloud compute environment, all of the dependencies and environmental configurations that are need for running the code need to be packaged so that they can be transported. For this reason we use [Docker](https://www.docker.com/) to describe the tool environment.
+
+Most of the tools that are developed for the Challenge will depend on some external software (R, Python, C++, etc.).
+Since these tools are being run in the Cloud and not on your local machine we need some way of downloading these dependencies and setting up the environment so that your tool can run
+properly. This is where [Docker](https://www.docker.com/) comes in. Docker allows you to specify all the dependencies and setup required for your tool in a Dockerfile and then it will build the
+environment for you, making it much easier to use your tool in the Cloud and also to share your tool with your teammates and the broader community.
+
+Below we have provided a number of resources on Docker, including a more in depth introduction to what Docker is, tutorials on how to build a Dockerfile and an example Dockerfile. If you want more resources check out the [Docker forum](https://forums.docker.com/) and the [Docker documentation](https://docs.docker.com/). For definitions of the Docker terminology look in [2.8 Glossary](https://www.synapse.org/#!Synapse:syn2786217/wiki/232923).
 
 Introduction To Docker
 ----------------------
@@ -11,24 +17,36 @@ ${youtube?videoId=YiZkHUbE6N0}
 
 Building a Dockerfile
 ---------------------
+### Videos
+A Dockerfile specifies all the information
+
 ${youtube?videoId=gG_x28rDxus}
 
 ${youtube?videoId=L6bjTlVdc6U}
 
-There is an [interactive tutorial](https://www.docker.com/tryit/) to learn how to work with the Docker command line. There is a large collection of pre-defined Docker environments that can be found at the [Docker Registry](https://registry.hub.docker.com/). These include full installations of [R](https://registry.hub.docker.com/_/r-base/) and [Python's SciKit-Learn](https://registry.hub.docker.com/u/buildo/docker-python2.7-scikit-learn/). If what you need is missing, you can also join and add your own projects to the registry.
+### Interactive Tutorial
+Besides these tutorials you can also find an interactive tutorial for Docker here: [https://www.docker.com/tryit/](https://www.docker.com/tryit/)
+
+### Example Docker Environments
+
+Docker provides a large collection of pre-defined Docker environments that can be found in the [Docker Registry](https://registry.hub.docker.com/). These include full installations of [R](https://registry.hub.docker.com/_/r-base/) and [Python's SciKit-Learn](https://registry.hub.docker.com/u/buildo/docker-python2.7-scikit-learn/). If what you need is missing, you can also join Docker and add your own projects to the registry.
 
 If the environment you need is not available on the registry you can provide a build description as part of your Galaxy tool. For this to work there needs to be a "Dockerfile" which describes all dependencies and environmental setup required to run the tool.  This includes any and all software packages, symlinks, and environmental variables that are needed by the tool itself or needed by its dependencies.  
 
-Dockerfiles use a 'fork and commit' strategy similar to github. You can start from a predefined system, and make small alterations on top of it. Any of the images found at the [Registry](https://registry.hub.docker.com/) and be can used as a basis of builds.
+One of the easiest ways to create your Dockerfile is to download one of the given examples in the [Docker Registry](https://registry.hub.docker.com/) and then make adjustments as needed, similar to the 'fork and commit' strategy in github.
+
+### Written Tutorial
 
 A written step-by-step guide to creating docker files and running them is here:
-https://www.digitalocean.com/community/tutorials/docker-explained-using-dockerfiles-to-automate-building-of-images
+[https://www.digitalocean.com/community/tutorials/docker-explained-using-dockerfiles-to-automate-building-of-images](https://www.digitalocean.com/community/tutorials/docker-explained-using-dockerfiles-to-automate-building-of-images)
 
-The Dockerfile reference manual
-https://docs.docker.com/reference/builder/
+### Reference Manual
 
+The Dockerfile reference manual can be found here: [https://docs.docker.com/reference/builder/](https://docs.docker.com/reference/builder/)
 
-The PhyloWGS Build starts with the 'ubuntu' image.
+### Example Dockerfile for a Galaxy Tool
+
+Below is the Dockerfile used to setup the PhyloWGS tool which is one of the two example tools we provide for you in Galaxy.
 
 ```
 FROM ubuntu

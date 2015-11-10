@@ -17,7 +17,6 @@ The main steps to set up your environment are:
 # Setting up your Working Environment via the Command Line
 _Note: All commands should be run from your local machine_
 
-TODO: addd links for each of these steps
 Before you start make sure you have:
     1. Created a [Google Developer account](http://console.developers.google.com/) (you can use your Google/Gmail account)
     2. Created a project to work on the Challenge through your [Google Developer Console](https://console.developers.google.com/project)
