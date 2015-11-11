@@ -8,6 +8,8 @@ Since these tools are being run in the Cloud and not on your local machine we ne
 properly. This is where [Docker](https://www.docker.com/) comes in. Docker allows you to specify all the dependencies and setup required for your tool in a Dockerfile and then it will build the
 environment for you, making it much easier to use your tool in the Cloud and also to share your tool with your teammates and the broader community.
 
+To create the environment to run your tool in you can either use one of the Docker containers found in the [Docker Registry](https://registry.hub.docker.com/) or define your own container by creating a Dockerfile in your tool directory.
+
 Below we have provided a number of resources on Docker, including a more in depth introduction to what Docker is, tutorials on how to build a Dockerfile and an example Dockerfile. If you want more resources check out the [Docker forum](https://forums.docker.com/) and the [Docker documentation](https://docs.docker.com/). For definitions of the Docker terminology look in [2.8 Glossary](https://www.synapse.org/#!Synapse:syn2786217/wiki/232923).
 
 Introduction To Docker
