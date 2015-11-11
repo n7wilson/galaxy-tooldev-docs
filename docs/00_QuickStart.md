@@ -133,7 +133,7 @@ $ cd SMC-Het-Challenge-Examples
 Run the following commands in your VM:
 ```
 $ sudo service docker restart
-$ restart_galaxy:
+$ restart_galaxy
 ```
 
 ### 9. Connect to Galaxy
@@ -180,6 +180,7 @@ ${image?fileName=Galaxy_DPC_Tool.png}
 ${image?fileName=Galaxy_DPC_input.png}
     3. Click the Execute button at the bottom of the form
     4. The output data files should appear in the data history panel on the right hand side of the screen
+    _Note: The DPC tool takes a fairly long time to run. As long as the tool has not thrown an error than it should be working properly._
 
 ${image?fileName=Galaxy_DPC_Results.png}
 

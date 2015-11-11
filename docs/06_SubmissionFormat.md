@@ -185,23 +185,31 @@ __Correct Example__
 1	0
 2	1
 ```
+Phylogenetic Tree (where each circle represents a cluster and the number inside each circle is the cluster ID):
+${image?fileName=phylogeny_tree1.png}
 __Incorrect Examples__
 ```
 # Incorrect number of clusters
 1	0
 2	1
-3      1
+3   1
 ```
+Phylogenetic Tree:
+${image?fileName=phylogeny_tree_incorrect1.png}
 ```
 # Incorrect cluster numbering
 0	0
 2	1
 ```
+Phylogenetic Tree:
+${image?fileName=phylogeny_tree_incorrect2.png}
 ```
 # Tree is not connected (two root nodes)
 1	0
 2	0
 ```
+Phylogenetic Tree:
+${image?fileName=phylogeny_tree_incorrect3.png}
 
 ##Sub-Challenge 3B: Ancestor - Descendent matrix
 The second submission file must be a text file containing an NxN Ancestor-Descendant Matrix (ADM), where N is the number of mutations.  Each entry ADM~i,j~ represents the probability that SSM i is in a lineage that is an ancestor of the lineage containing SSM j.
@@ -225,6 +233,8 @@ __Correct Example__
 0	0.5	0	1
 0	0	0	0
 ```
+Phylogenetic Tree (where each circle represents a cluster and the numbers inside each circle are the mutations associated with that cluster):
+${image?fileName=phylogeny_tree2.png}
 __Incorrect Examples__
 ```
 # Incorrect number of clusters
@@ -232,6 +242,8 @@ __Incorrect Examples__
 0	0	0
 0	0.5	0
 ```
+Phylogenetic Tree:
+${image?fileName=phylogeny_tree_incorrect4.png}
 ```
 # Diagonal entries are not 0's
 0	1	0.3	1
@@ -239,13 +251,17 @@ __Incorrect Examples__
 0	0.5	1	1
 0	0	0	0
 ```
+Phylogenetic Tree:
+${image?fileName=phylogeny_tree_incorrect5.png}
 ```
 # Entries are not between 0 and 1
 0	1.2	0.3	1
-0	0	0	-0
-0	0.5	0	1
+0	0	0	0
+0	0.5	0	-1
 0	0	0	0
 ```
+Phylogenetic Tree:
+${image?fileName=phylogeny_tree_incorrect6.png}
 ```
 # ADM + CCM has entries > 1
 0	1	0.5	1
@@ -253,6 +269,8 @@ __Incorrect Examples__
 0	0.5	0	1
 0	0.1	0	0
 ```
+Phylogenetic Tree:
+${image?fileName=phylogeny_tree_incorrect7.png}
 
 # Testing Your Submission in Galaxy
 
@@ -261,13 +279,13 @@ Once you have created your submission tool in Galaxy you can test your tool usin
 ## Errors
 
 It is possible that one or more of your sub-challenge submissions will cause errors in the evaluator due to incorrect formatting or invalid values in you submission file. If this happens the Galaxy job that evaluates your submission will report an error and you can view the cause of this error by clicking on the 'View or report this error' button:
-${image?fileName=galaxy%5Fdebugger%5Fbutton%2Epng&align=None}
+${image?fileName=galaxy_debugger_button.png}
 in your job history and looking at the function output.
 
-${image?fileName=galaxy%5Ferror%5Finfo%2Epng&align=None}
+${image?fileName=galaxy_error_info.png}
 
 You can also view the results from any successfully evaluated sub-challenge submissions by clicking on 'View data' button:
-${image?fileName=galaxy%5Fview%5Fdata%5Fbutton%2Epng&align=None}
+${image?fileName=galaxy_view_data_button.png}
 in your job history.
 
-${image?fileName=galaxy%5Fview%5Fdata%2Epng&align=None}
+${image?fileName=galaxy_view_data.png}
