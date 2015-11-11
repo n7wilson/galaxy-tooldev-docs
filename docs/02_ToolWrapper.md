@@ -87,6 +87,47 @@ __Sample XML File Template__
 
 If you are looking for more resources you can search the [Galaxy wiki page](https://wiki.galaxyproject.org/FrontPage)
 
+###Base XML File
+
+Rather than start from a blank page, you can use Planemo to populate a stub file you can start filling in. To setup the base XML file:
+1. Create a Project for Your Tool
+Run the following code in the /opt/galaxy/tool/ directory:
+```
+$ planemo project_init mytool
+Creating empty project, this function doesn't do much yet.
+```
+2. Initialize Your Tool
+Move to your new tool directory using `$ cd mytool` and execute the command:
+```
+$ planemo tool_init
+Name: MyTool
+Id: mytool
+Tool written to mytool.xml
+```
+
+This will create the following file for you to work off of:
+```
+<tool id="mytool" name="MyTool" version="0.1.0">
+  <requirements>
+  </requirements>
+  <stdio>
+    <exit_code range="1:" />
+  </stdio>
+  <command><![CDATA[
+TODO: Fill in command template.
+]]></command>
+  <inputs>
+  </inputs>
+  <outputs>
+  </outputs>
+<help><![CDATA[
+TODO: Fill in help.
+]]></help>
+</tool>
+```
+
+More examples of how to use the `tool_init` method can be found at in the [Planemo Docs](http://planemo.readthedocs.org/en/latest/writing_standalone.html#the-basics)
+
 ###XML File Stanzas
 Every XML file has certain stanzas that are required to fully describe how to interface with the tool:
 
@@ -145,7 +186,8 @@ The Header:
 <tool id="dpc" name="VCF DPC" version="1.0.0">
 ```
 
-The Requirements:
+The Requirements (the Docker container that should be used):
+_Note: this Docker container must either reference one of the Docker images in the [Docker Registry](https://registry.hub.docker.com/) or be defined by a Dockerfile that you create for your tool_
 ```
   <requirements>
     <container type="docker">r-base</container>

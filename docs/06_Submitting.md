@@ -21,7 +21,7 @@ If you don't want to use your history to create a workflow you can also build on
 ${image?fileName=Galaxy_workflow_menu.png}
 2. Once in the Workflow section, select 'Create new Workflow'
 3. Name your workflow and hit the 'Create' button.
-${image?fileName=Galaxy_workflow_dpc}
+${image?fileName=Galaxy_workflow_dpc.png}
 You will then be brought to the workflow editor.
 ${image?fileName=Galaxy_workflow_editor.png}
 4. Once in the workflow editor, find the tools you want to include in the panel on the lefthand side and click them to create add them to your workflow in the central panel (including the evaluator)
@@ -35,8 +35,20 @@ ${image?fileName=Galaxy_workflow_editor_attributes.png}
 Click the '*' next to the evaluator output to indicate that this is the final step in the workflow.
 ${image?fileName=Galaxy_workflow_editor_connections.png}
 8. Save your workflow by clicking Settings (the gear button in the top righthand corner of the central pane) -> Save
-TODO: add the PhyloWGS/DPC workflow to Galaxy
 
+## Sample Workflows
+Sample workflows for the two sample tools provided in SMC-het-Challenge-Examples can be downloaded here:
+DPC - ${previewattachment?fileName=Galaxy-Workflow-DPC_Workflow.ga}
+PhyloWGS - ${previewattachment?fileName=Galaxy-Workflow-PhyloWGS.ga}
+
+To use these workflows in your Galaxy instance:
+1. Go to the Workflow tab in your Galaxy instance
+2. Click the 'Upload or import workflow' button in the top righthand corner
+3. Click 'Browse' and find the file containing the workflow you want to upload
+4. Click 'Import'
+5. Click on the newly imported workflow and then click 'Run'
+6. Select the input for you workflow (you will need to import the tumour data to your history)
+7. Click 'Run workflow'
 
 ##Workflow Requirements
 1. Inputs must be labeled by the expected file type. The VCF input file is labeled 'VCF\_INPUT' and the copy number input is labeled 'CNA\_INPUT'
