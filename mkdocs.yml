@@ -11,6 +11,7 @@ pages:
 - [06_Submitting.md, Submitting, Submitting Code]
 - [06_SubmissionFormat.md, Submitting, Submission File Format]
 - [07_Advanced.md, Advanced, Advanced]
+- [08_FAQ, FAQ, FAQ]
 imports:
 -
     file: planemo/docs/commands/docker_build.rst
