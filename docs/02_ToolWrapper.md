@@ -20,6 +20,8 @@ Optional Sections to include in the XML file
 
 More information on what you can include in an XML file can be found in the __Syntax for Galaxy XML File__ below under Tutorials and Docs.
 
+_Note: if you have created your own Dockerfile then you should save your Dockerfile and your XML File in the same directory._
+
 
 Basic XML Template
 --------
@@ -240,6 +242,22 @@ All the input files that you specify must come from your Galaxy history. This me
 
 ###Output From Your Tool
 All the output files that you specify will be saved to your Galaxy history. This makes passing data from one tool to another very easy, as the data will already be in your Galaxy history, where you need it.
+
+There are two ways, within your tool's main function, that you can save data to use as output in your XML file:
+1. Save the data to a file in your working directory
+To reference the data in your XML output add the attribute `from_work_dir=my_data_filename` to your <data> tag (as is done in the Example file above):
+`<data format="txt" name="cellularity" label="Cellularity (Sub Challenge 1A)" from_work_dir="subchallenge1A.txt"/>`
+2. Allow your function to take in a parameter that specifies the filepath location you wish to save your data to
+To reference the data in you XML output name your <data> tag and then use this name as the input for the filepath location in your command:
+```
+<command interpreter="Rscript">
+    my_r_function.R --inputfile ${my_output_data}
+</command>
+...
+<data format="txt" name="my_output_data"/>
+```
+
+Both of these methods work equally well so choose whichever one you feel most comfortable with.
 
 ###Parallelizing Your Tool
 Galaxy will automatically pick the number of threads to use when trying to parallelize your tool but you can if you want you can specify the number of thread to use using the GALAXY_SLOTS environmental variable:

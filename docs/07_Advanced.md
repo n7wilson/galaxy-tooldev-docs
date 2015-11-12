@@ -14,7 +14,9 @@ As an alternative to the Google Cloud based development kit, it is possible to r
 
 2. Download and install [Vagrant](http://www.vagrantup.com/downloads)
 
-3. Enable vagrant by creating a `Vagrantfile` in your tool directory, which will configure your VM. An example Vagrantfile can be found below:
+3. Download and install [VirtualBox](https://www.virtualbox.org/) if you have not done so already
+
+4. Enable vagrant by creating a `Vagrantfile` in your tool directory, which will configure your VM. An example Vagrantfile can be found below:
 
 ```
 VAGRANTFILE_API_VERSION = "2"
@@ -36,18 +38,18 @@ You can also download this example Vagrantfile directly: ${previewattachment?fil
 
 > You Vagrantfile must be named `Vagrantfile`
 
-4. Next you will need to startup the appliance. To do this open your terminal and execute the following command in the directory with you Vagrantfile in it:
+5. Next you will need to startup the appliance. To do this open your terminal and execute the following command in the directory with you Vagrantfile in it:
 
 ```
 vagrant up
 ```
 
-5. Log into the Galaxy server by going to http://localhost:8010/ in your web browser
+6. Log into the Galaxy server by going to http://localhost:8010/ in your web browser
 
 
-6. Access the command line inside the virtual machine by running the command:
+7. Access the command line inside the virtual machine by running the command:
 ```
 vagrant ssh
 ```
 
-7. Move to `/opt/galaxy/tools` and start working on your tool!
+8. Move to `/opt/galaxy/tools` and start working on your tool!

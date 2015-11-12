@@ -10,7 +10,7 @@ environment for you, making it much easier to use your tool in the Cloud and als
 
 To create the environment to run your tool in you can either use one of the Docker containers found in the [Docker Registry](https://registry.hub.docker.com/) or define your own container by creating a Dockerfile in your tool directory.
 
-Below we have provided a number of resources on Docker, including a more in depth introduction to what Docker is, tutorials on how to build a Dockerfile and an example Dockerfile. If you want more resources check out the [Docker forum](https://forums.docker.com/) and the [Docker documentation](https://docs.docker.com/). For definitions of the Docker terminology look in [2.8 Glossary](https://www.synapse.org/#!Synapse:syn2786217/wiki/232923).
+Below we have provided a number of resources on Docker, including a more in depth introduction to what Docker is, tutorials on how to build a Dockerfile and an example Dockerfile. If you want more resources check out the [Docker forum](https://forums.docker.com/) and the [Docker documentation](https://docs.docker.com/). For definitions of the Docker terminology look in [2.8 Glossary](https://www.synapse.org/#!Synapse:syn2786217/wiki/232923). For answers to common questions about using Docker look in [3.5.10 FAQ](https://www.synapse.org/#!Synapse:syn2786217/wiki/284584).
 
 Introduction To Docker
 ----------------------
@@ -31,11 +31,12 @@ Besides these tutorials you can also find an interactive tutorial for Docker her
 
 ### Example Docker Environments
 
-Docker provides a large collection of pre-defined Docker environments that can be found in the [Docker Registry](https://registry.hub.docker.com/). These include full installations of [R](https://registry.hub.docker.com/_/r-base/) and [Python's SciKit-Learn](https://registry.hub.docker.com/u/buildo/docker-python2.7-scikit-learn/). If what you need is missing, you can also join Docker and add your own projects to the registry.
+Docker provides a large collection of pre-defined Docker environments that can be found in the [Docker Registry](https://registry.hub.docker.com/). These include full installations of [R](https://registry.hub.docker.com/_/r-base/) and [Python's SciKit-Learn](https://registry.hub.docker.com/u/buildo/docker-python2.7-scikit-learn/). If you find a Dockerfile in the Docker Registry that suits your needs you can use it by referencing it in your XML file (you do not need to download the Dockerfile). If what you need is missing, you can also join Docker and add your own projects to the registry.
 
-If the environment you need is not available on the registry you can provide a build description as part of your Galaxy tool. For this to work there needs to be a "Dockerfile" which describes all dependencies and environmental setup required to run the tool.  This includes any and all software packages, symlinks, and environmental variables that are needed by the tool itself or needed by its dependencies.  
+If the environment you need is not available on the registry you will need to build your own Dockerfile and reference it in your tool's XML file. This file must include any and all software packages, symlinks, and environmental variables that are needed by the tool itself or needed by its dependencies. Your Dockerfile should then be saved in the same directory as your tool's XML File.
 
-One of the easiest ways to create your Dockerfile is to download one of the given examples in the [Docker Registry](https://registry.hub.docker.com/) and then make adjustments as needed, similar to the 'fork and commit' strategy in github.
+One of the easiest ways to create your Dockerfile is to download one of the given examples in the [Docker Registry](https://registry.hub.docker.com/) and then make adjustments as needed, similar to the 'fork and commit' strategy in github. Instructions on this process can be found here: [http://docs.docker.com/engine/userguide/dockerimages/](http://docs.docker.com/engine/userguide/dockerimages/)
+
 
 ### Written Tutorial
 

@@ -35,7 +35,7 @@ You can also check the file syntax with
 planemo lint my_cool_tool.xml
 ```
 6. Test Your Tool in Galaxy
-> If you think that Galaxy has not updated your tool use the command `sudo supervisoctl restart galaxy` or `restart_galaxy` and try again
+> If you think that Galaxy has not updated your tool use the commands `sudo service docker restart` and `restart_galaxy` and try again
 
 
 Web Based IDE
