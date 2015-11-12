@@ -39,6 +39,9 @@ VCF File
 OUTPUT:
 Submission files for subchallenges 1A, 1B, 1C, 2A and 2B
 
+WORKFLOW FILE:
+${previewattachment?fileName=Galaxy-Workflow-DPC_Workflow.ga}
+
 The DPC tool is the simpler of the two examples, since it only uses one Galaxy tool and does not require you to build the Docker image for the tools yourself, so it is advisable to start with this one.
 
 To use the DPC tool head to your Galaxy instance and import the Training data:
@@ -58,6 +61,9 @@ CNA File
 
 OUTPUT:
 Submission files for subchallenges 1A, 1B, 1C, 2A, 2B, 3A and 3B
+
+WORKFLOW FILE:
+${previewattachment?fileName=Galaxy-Workflow-PhyloWGS.ga}
 
 The PhyloWGS example is slightly more complicated than the DPC example since it requires some extra setup and also requires you to use multiple tools within Galaxy. However, PhyloWGS provides submission files for all subchallenges, not just subchallenges 1 and 2.
 
@@ -135,3 +141,19 @@ _Note: the DPC tool provides output for subchallenges 1 and 2 only while the Phy
 The results of your sample tool's evaluation (in dictionary format) will then appear in your history.
 
 > Keep the scores of these tools in mind when developing your own tool try to beat them!
+
+## Example Workflows
+Workflow files for both sample tools above can be downloaded here:
+DPC - ${previewattachment?fileName=Galaxy-Workflow-DPC_Workflow.ga}
+PhyloWGS - ${previewattachment?fileName=Galaxy-Workflow-PhyloWGS.ga}
+
+Once uploaded to your Galaxy instance these files will allow you to run the entire tool and evaluate the results with one click.
+
+To use these workflows in your Galaxy instance:
+1. Go to the Workflow tab in your Galaxy instance
+2. Click the 'Upload or import workflow' button in the top righthand corner
+3. Click 'Browse' and find the file containing the workflow you want to upload
+4. Click 'Import'
+5. Click on the newly imported workflow and then click 'Run'
+6. Select the input for you workflow (you will need to import the tumour data to your history)
+7. Click 'Run workflow'

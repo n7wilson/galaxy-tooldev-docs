@@ -48,7 +48,8 @@ def markdown_clean(txt, encoding="utf-8"):
     return txt.encode(encoding)
 
 def find_attachments(doc):
-    tmp = re.findall(r'\${[image,previewattachement]\?fileName=([^}]+)}', doc)
+    tmp = re.findall(r'\${(image|previewattachment)\?fileName=([^}]+)}', doc)
+    tmp = [x[1] for x in tmp]
     return tmp
 
 def load_doc(page):
@@ -134,7 +135,10 @@ if __name__ == "__main__":
             #find it
             if not found:
                 print "Uploading Attachment", a
-                wiki.update({'attachments':[os.path.join("images", a)]})
+                if str(a).endswith('.png') or str(a).endswith('.gif'):
+                    wiki.update({'attachments':[os.path.join("images", a)]})
+                else:
+                    wiki.update({'attachments':[os.path.join("files", a)]})
                 syn.store(wiki)
             #syn._getFileHandle and syn.chunkedFileUpload.
             print a
