@@ -7,33 +7,54 @@ In this section you will learn how to:
 Google Cloud Platform Quick Start
 ---------------------------------
 
-### 1. Create Your Project
+### 1. Setup Your Google Account and Create Your Project
+_Note: this setup uses the Beta version of the Google Developers Console. If you are using the old version the instructions will be slightly different._
 
-First go to https://console.developers.google.com to view your projects. If you do not already have a project use the 'Create Project' button.
+First go to https://console.developers.google.com and sign in with your Google account. You will be brought to the Google Developers Console (also known as the Google Compute Engine or GCE), the home page for setting up and managing your Virtual Machines through Google.
 
+${image?fileName=Google_First_Login.png}
 
-${image?fileName=Google_Developer_Create_Project.png}
+Once you have logged in to your Google Developer Console you need to sign up for a free trial by clicking the big blue button in the top righthand corner. This will require you to enter in credit card information but NO CHARGES WILL BE MADE unless you decide to upgrade your account before the end of the trial.
+_Note: the free trial lasts for 60 days or 300$ worth of credits, after which we will be providing credits to each team for use in the rest of the Challenge_
 
-Once you have created your project go to the Home page, which should look like this:
+After signing up for the free trial Google will automatically create a project for you, which you can rename by going to the projects drop down list titled 'My First Project', selecting 'Manage all projects' and the clicking the rename button for your project.
 
-${image?fileName=Google_Developer_Home.png}
+${image?fileName=Google_projects_list.png}
 
-For Google Cloud Platform, a Project is an area to organize members, cloud resources such as GCE instances, and billing.  Every GCP project has an ID and number. You can choose your own ID, but the number will be assigned automatically by GCP.
+${image?fileName=Google_manage_projects.png}
 
-### Load the Planemo Image Into Your Project.
+Once you have renamed your project go to the Home page, which should look like this:
 
-Next you will need to load the planemo image by going to Compute -> Compute Engine -> Images -> New Image in the left hand menu. Change the following values in the form and then press "Create"
+${image?fileName=Google_Developer_Home_with_project.png}
+
+For Google Compute Engine, a Project is an area to organize members, access cloud resources such as VM instances, and review your billing.  Every GCE project has an ID and number. You can choose your own ID, but the number will be assigned automatically by GCE.
+
+To build your VM instance you will first need to create an image that your VM instance will be built from and a data disk that will be used as storage.
+
+### 2. Load the Planemo Image Into Your Project.
+
+Next you will need to load the planemo image, the image we have provided for all Challenge participants with the necessary software to  by clicking the Gallery button in the top lefthand corner
+${image?fileName=gallery_button.png}
+and then going to Compute -> Compute Engine. This will initialize your Compute Engine, which will take a few minutes.
+_Note: you can check the status of any actions you have performed in GCE by looking in the 'Activities' panel in the bottom righthand corner_
+
+${image?fileName=Google_activities_panel.png}
+
+> If you receive a message saying there was an 'Unknown Error' refresh your browser, go back the the Compute Engine. If you are brought to the VM instances page then everything has completed correctly.
+
+Once this is finished select Images in the panel on the lefthand side and click 'New Image' at the top of the page. Change the following values in the form and then press "Create"
 
     * Name: planemo-machine-image
-    * Source type: Cloud storage object
-    * Cloud storage object path: `galaxyproject_images/planemo_machine_smc.image.tar.gz`
+    * Source type: Cloud Storage file
+    * Cloud Storage file: `galaxyproject_images/planemo_machine_smc.image.tar.gz`
 
 ${image?fileName=Google_Developer_Create_Image.png}
 
-###3. Create your data disk.
+### 3. Create Your Data Disk.
 
-Now we need to create the disk to store your data on. Go to  Compute -> Compute Engine -> Disks -> New Disk in the menu and change the following information in the form then press "Create" (as you did before).
+Now we need to create the disk to store your data on. In your Compute Engine select Disks in the panel on the lefthand side and click 'Create a disk'.
 
+Change the following information in the form then press "Create" (as you did before).
     * Name: planemo-data
     * Zone: choose your preferred zone but be sure to make note of it and use the same zone when creating your VM
     * Source type: None (blank disk)
@@ -41,14 +62,14 @@ Now we need to create the disk to store your data on. Go to  Compute -> Compute 
 
 ${image?fileName=Google_Developer_Create_Disk.png}
 
-### 4. Create your VM.
+### 4. Create Your VM.
 
-    Head to Compute -> Compute Engine -> VM Instances. If a dialog pops up asking what you want to do, select 'Create Instance', otherwise click the 'New Instance' button.
+    Now you can actually build your VM Instance. From you Compute Engine select VM Instances in the panel on the lefthand side and click 'Create Instance'.
     Fill out the instance creation dialog with the following changes:
         * Name: planemo
         * Zone: same as the one you chose for the data disk
         * Machine Type: your choice, but a system with at least 6GB of RAM is expected (click Change to modify)
-        * Boot Disk: image you created previously with more memory than the default
+        * Boot Disk: Planemo Image you created previously but with more memory than the default
                     - click Change and select "Your image"
                     - select the image listed
                     - change the size of the to be at least 30GB using the Size field at the bottom of the window
@@ -58,18 +79,23 @@ ${image?fileName=Google_Developer_Create_Disk.png}
                     - Click on the 'Management, disk, networking, access & security options' to expand the drop-down.
                     - Click on Disks -> Add Item and select the disk you created in the prior step.
 
-     Once you're done, hit 'Create'
+     Once you're done, hit 'Create'. It should take a few minutes for the VM to be created.
 
-${image?fileName=GCE_Launch.png}
+${image?fileName=Google_Create_Instance1.png}
+${image?fileName=Google_Create_Instance2.png}
 
 
-### 5. SSH to the newly created VM.
+### 5. SSH to Your VM.
 
-    To see your instance list, navigate back to Compute -> Compute Engine -> VM Instances then click the 'SSH' button at the bottom under the 'Connect' header.
+    Once your VM has been created navigate back to VM Instances then click the 'SSH' button at the bottom under the 'Connect' header.
 
 ${image?fileName=Google_Developer_SSH.png}
 
-### 6. Format and mount your data disk.
+    This will open the command line for your VM instance in a new window.
+
+${image?fileName=Google_VM_commandline.png}
+
+### 6. Format and Mount your Data Disk.
 
     We do all of the commands that follow as user `ubuntu` on the VM.  Change to this user.
 ```
@@ -95,7 +121,9 @@ total 0
     Mount and format the disk.
 ```
 $ sudo /usr/share/google/safe_format_and_mount -m "mkfs.ext4 -F" /dev/sdb /opt/galaxy/tools
+$ sudo bash -c 'echo -e "/dev/sdb\t/opt/galaxy/tools\text4\tdefaults\t0\t2" >> /etc/fstab'
 ```
+> A 'bad magic error' at this step is typical, you can ignore it
 
     Set ownership of the disk to user `ubuntu`.
 ```
@@ -152,7 +180,7 @@ ${image?fileName=Galaxy_import_data.png}
 * All the data will now appear in your history
 ${image?fileName=Galaxy_tumour1_imported.png}
 
-TODO: Find the correct aspot for this section (if any)
+TODO: Find the correct spot for this section (if any)
     There are two ways to upload data to galaxy: from your local machine or from a website URL
 
     1. Local Data:
@@ -172,17 +200,17 @@ ${image?fileName=Galaxy_upload_Data.png}
 
 ### 11. Run the example tool.
 
-    1. Select the DPC tool in the left hand tool panel
+    1. Select the DPC tool in the left hand tool panel under Imported Tools
 
-${image?fileName=Galaxy_DPC_Tool.png}
+${image?fileName=Galaxy_Tool_menu.png}
 
     2. In the 'VCF file' field select 'Tumour1.mutect.vcf'
 ${image?fileName=Galaxy_DPC_input.png}
     3. Click the Execute button at the bottom of the form
     4. The output data files should appear in the data history panel on the right hand side of the screen
-    _Note: The DPC tool takes a fairly long time to run. As long as the tool has not thrown an error than it should be working properly._
+    _Note: The DPC tool takes a fairly long time to run (>30min). As long as the tool has not thrown an error then it should be working properly._
 
-${image?fileName=Galaxy_DPC_Results.png}
+${image?fileName=Galaxy_DPC_Results_edit.png}
 
 ### 12. Evaluate the results
 
@@ -191,10 +219,13 @@ Now that you have some sample data to submit to the Challenge you can run it thr
     1. Select the Evaluator Tool in the left hand tool panel
 ${image?fileName=Galaxy_evaluator.png}
     2. For each of the inputs for subchallenge 1 and 2 select the corresponding results file from your history _Note: the DPC tool does not provide results for subchallenge 3._
-${image?fileName=Galaxy_evaluator_complete.png}
+${image?fileName=submit_dpc.png}
 
     3. Click the Execute button at the bottom of the form
 ${image?fileName=Galaxy_evaluator_execute_button.png}
     4. Look in your history in the right hand panel and check your results!
+    You can see the results be clicking the 'View data' icon
+${image?fileName=view_data_button.png}
+    which will show you a dictionary with the scores for each subchallenge that you submitted to. Scores are all between 0 and 1 with 1 being a perfect score and 0 being...less perfect.
 
 Ta da!  You have set up your Google Compute engine virtual machine running Galaxy, run a sample tool and used the evaluator to test your results. Now you are ready to start making your own tools and testing them in Galaxy!
