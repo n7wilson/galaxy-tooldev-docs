@@ -171,6 +171,9 @@ in your VM instance.
 
 If you are still having issues check that your XML file is formatted properly using the `planemo lint my_tool_xml.xml` command and then restart Docker and Galaxy again.
 
+## Can I just submit result files to the Challenge?
+No, you must submit a Galaxy workflow along with all your tool code. For more information look at [3.5.7 - Submitting to the Challenge]
+
 # Docker
 ## Do I need to create my own Dockerfile?
 No, if you find a Dockerfile that works for you on the [Docker Registry](https://hub.docker.com/) then feel free to use that one instead. In fact if you use a Dockerfile straight from the Docker Registry then you don't even need to donwload it to your VM, you just need to reference it in your XML file.

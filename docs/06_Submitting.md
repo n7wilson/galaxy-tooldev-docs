@@ -5,7 +5,7 @@ Submitting a workflow to the SMC-Het Challenge
 ${toc}
 
 A submission to the challenge is a [Galaxy workflow](https://wiki.galaxyproject.org/Learn/AdvancedWorkflow). Submitting the workflow is done by the `dream_galaxy_submit` script found in the GitHub repo [SMC-Het-Challenge](https://github.com/Sage-Bionetworks/SMC-Het-Challenge). This script will scan a Galaxy workflow, download all of the relevant tools and then upload them to your Synapse Project.
-
+_Note: using the Evaluator tool does NOT submit your algorithm_
 
 In Galaxy, workflows are created in one of two ways. The first way is to extract a workflow from the 'History', then edit it to create a streamlined workflow. The second is to create the workflow from scratch in the [workflow editor](https://wiki.galaxyproject.org/Learn/AdvancedWorkflow/BasicEditing/WorkflowEditorUnannotated).
 

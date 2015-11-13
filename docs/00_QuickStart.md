@@ -15,7 +15,7 @@ First go to https://console.developers.google.com and sign in with your Google a
 ${image?fileName=Google_First_Login.png}
 
 Once you have logged in to your Google Developer Console you need to sign up for a free trial by clicking the big blue button in the top righthand corner. This will require you to enter in credit card information but NO CHARGES WILL BE MADE unless you decide to upgrade your account before the end of the trial.
-_Note: the free trial lasts for 60 days or 300$ worth of credits, after which we will be providing credits to each team for use in the rest of the Challenge_
+_Note: the free trial lasts for 60 days or 300$ worth of credits, after which we will be providing credits to each team for use in the rest of the Challenge. For more details see the Google Compute Engine Credits section in 3.5.2 - Google Compute Engine_
 
 After signing up for the free trial Google will automatically create a project for you, which you can rename by going to the projects drop down list titled 'My First Project', selecting 'Manage all projects' and the clicking the rename button for your project.
 
@@ -213,6 +213,7 @@ ${image?fileName=Galaxy_DPC_input.png}
 ${image?fileName=Galaxy_DPC_Results_edit.png}
 
 ### 12. Evaluate the results
+_Note: this will only evaluate the algorithm results based on the training sample that you used, this will NOT submit your results to the Challenge_
 
 Now that you have some sample data to submit to the Challenge you can run it through the evaluator and see how well you did.
 

@@ -1,6 +1,6 @@
 
 
-Google Compute Engine based Deployment
+Google Compute Engine
 ======================================
 
 ${toc}
@@ -87,3 +87,7 @@ After the disk is attached to the instance, it will be available to be mounted.
 ### Setup your VM Instance
 
 From here follow the instructions in the [Quick Start](https://www.synapse.org/#!Synapse:syn2786217/wiki/266669), starting from Step 6.
+
+# Google Compute Engine Credits
+
+Google Cloud Engine provides all new users with $300 USD of computing credits upon registration which are valid over two months (https://cloud.google.com/free-trial/) . All participants should first use these credits when working on the challenge. Teams may be able to maximize the use of these free credits by staggering when each member begins their free trial and sharing work through Github or similar platforms.  However, if teams run out of credits before the challenge ends they can contact the organizers about receiving further credits provided by Google.  See https://cloud.google.com/compute/pricing#machinetype for details on GCE pricing.
