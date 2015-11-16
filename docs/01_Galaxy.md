@@ -4,6 +4,9 @@ Starting out on SMC-Het
 #### Environment Setup
 Step-by-step instructions on how to turn on the development VM using the Google Compute environment.
 ${youtube?videoId=W8gBki65g0c}
+_Note: this video does not include reflect that you need authentication to access you Galaxy instance_
+_If you are prompted for authentication when trying to access Galaxy use the following credentials:_
+_**Username**: planemo **Password**: planemo_
 
 #### Tool Development
 How to develop and test your own tools for running in Galaxy.

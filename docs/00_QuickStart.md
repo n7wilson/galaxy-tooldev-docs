@@ -46,7 +46,11 @@ Once this is finished select Images in the panel on the lefthand side and click 
 
     * Name: planemo-machine-image
     * Source type: Cloud Storage file
-    * Cloud Storage file: `galaxyproject_images/planemo_machine_smc.image.tar.gz`
+    * Cloud Storage file: `galaxyproject_images/planemo_machine_smc.01.image.tar.gz`
+    _Note: the current version number for the planemo instance (in this case 01) will change throughout the Challenge as we updated the image._
+
+> If you receive an error when creating your image first check to see if you are using the correct version. Any version updates will be changed here and posted in 1 - Challenge News and Updates
+
 
 ${image?fileName=Google_Developer_Create_Image.png}
 
@@ -120,15 +124,10 @@ total 0
 ```
     Mount and format the disk.
 ```
-$ sudo /usr/share/google/safe_format_and_mount -m "mkfs.ext4 -F" /dev/sdb /opt/galaxy/tools
-$ sudo bash -c 'echo -e "/dev/sdb\t/opt/galaxy/tools\text4\tdefaults\t0\t2" >> /etc/fstab'
+$ gce_mount_tool_disk
 ```
-> A 'bad magic error' at this step is typical, you can ignore it
 
-    Set ownership of the disk to user `ubuntu`.
-```
-$ sudo chown -R ubuntu /opt/galaxy/tools
-```
+> A 'bad magic error' at this step is typical, you can ignore it
 
     Now your external disk should be mounted by the VM.
 ```
@@ -170,6 +169,10 @@ Go back to the Developers Console and click the little pop-out arrow to the righ
 
 ${image?fileName=Galaxy_Home_Page.png}
 
+You will be prompted for a username and password to access Galaxy. Enter the following information:
+Username: planemo
+Password: planemo
+
 ### 10. Import Data.
 
 All the tumour data that you will need for the Challenge will be accessible directly from Galaxy. To import the data:
@@ -179,24 +182,6 @@ All the tumour data that you will need for the Challenge will be accessible dire
 ${image?fileName=Galaxy_import_data.png}
 * All the data will now appear in your history
 ${image?fileName=Galaxy_tumour1_imported.png}
-
-TODO: Find the correct spot for this section (if any)
-    There are two ways to upload data to galaxy: from your local machine or from a website URL
-
-    1. Local Data:
-        * Click the upload button
-        ${image?fileName=upload_button.png}
-        * Click 'Choose local file'
-        * Select the desired file
-    2. Online Data:
-        * Click the upload button
-        ${image?fileName=upload_button.png}
-        * Click 'Paste/Fetch Data'
-        * Input the URL of the data file
-
-    For this example we will use the 'test_vcf.vcf' file found in the SMC-Het-Challenge github at 'https://raw.githubusercontent.com/Sage-Bionetworks/SMC-Het-Challenge/master/data/test_vcf.vcf'
-
-${image?fileName=Galaxy_upload_Data.png}
 
 ### 11. Run the example tool.
 

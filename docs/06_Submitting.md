@@ -7,6 +7,8 @@ ${toc}
 A submission to the challenge is a [Galaxy workflow](https://wiki.galaxyproject.org/Learn/AdvancedWorkflow). Submitting the workflow is done by the `dream_galaxy_submit` script found in the GitHub repo [SMC-Het-Challenge](https://github.com/Sage-Bionetworks/SMC-Het-Challenge). This script will scan a Galaxy workflow, download all of the relevant tools and then upload them to your Synapse Project.
 _Note: using the Evaluator tool does NOT submit your algorithm_
 
+> Your algorithm will not be scored if it uses more than 7$ of compute time in Google Compute Engine or takes longer than 200 hours to run for any of the 50 test tumours. You should test your algorithm on the training tumours in order to ensure your algorithm does not go over the given computational limits. For more information on Google Compute Engine pricing click here: [https://cloud.google.com/compute/pricing](https://cloud.google.com/compute/pricing).
+
 In Galaxy, workflows are created in one of two ways. The first way is to extract a workflow from the 'History', then edit it to create a streamlined workflow. The second is to create the workflow from scratch in the [workflow editor](https://wiki.galaxyproject.org/Learn/AdvancedWorkflow/BasicEditing/WorkflowEditorUnannotated).
 
 ##Extracting a Workflow From Your History
@@ -76,6 +78,10 @@ You can then execute your workflow by clicking your workflow, passing in the nec
 
 ##Submit the workflow
 
+Prior to submission you must first read through the [Synapse tutorial](https://www.synapse.org/#!Help:GettingStarted) and pass the [Certification quiz](https://www.synapse.org/#!Quiz:Certification) to become a Certified User.
+
+You must also create a new project in your profile for your submission that will act as your workspace in Synapse. To do this go to your profile on the [Synapse website](https://www.synapse.org/). Once there select the Projects tab, enter the name of your new project, and click 'Create Project'. You will use the project ID for this project later when you are completing the submission form for the Challenge.
+
 To submit your workflow go to <External IP address>/submit/ where <External IP address> is the IP address associated with your VM instance (the IP address of your copy of Galaxy).
 This IP address can be found in your either:
 * in the URL of your Galaxy instance or
@@ -87,12 +93,12 @@ ${image?fileName=Galaxy_submit.png}
 
 Once you are on the submit page select the workflow that you would like to submit and click 'Start Submission'. This will bring you to the submission form for SMC-Het:
 
-${image/fileName=Galaxy_submission_form.png}
+${image?fileName=Galaxy_submission_form.png}
 
 At the top of this form you will need to fill out three fields with information from your Synapse account:
 * Your Synapse email (found in your profile page on Synapse under Settings)
 * Your Synapse API Key (found in your profile page on Synapse under Setting by clicking 'Show API Key')
-* The Synapse Project ID for the SMC-Het Challenge (found in the top-left corner of this page under Synapse ID)
+* The Synapse Project ID for your submission project created above (found in the top-left corner of your submission projects Synapse page under Synapse ID)
 
 You will then need to fill out a short survey on the details of your algorithm. This information will be used to aid in post-challenge analysis and will be incredibly useful for future projects that use the results of the Challenge.
 

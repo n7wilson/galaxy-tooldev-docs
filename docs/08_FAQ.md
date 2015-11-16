@@ -1,5 +1,4 @@
 # Frequently Asked Questions
-TODO: see if there is a way to make this page come after 3.5.9
 
 ${toc}
 
@@ -160,8 +159,12 @@ gcloud compute copy-files tools ubuntu@planemo-v2:/opt/galaxy/
 ```
 
 # Galaxy
+## When I try to access Galaxy I am asked for a username and password. What do I do?
+Use these credentials:
+**Username**: planemo
+**Password**: planemo
 
-## What should I do if my tool isn't loading properly in Galaxy?
+## My tool isn't loading properly in Galaxy, what should I do?
 First try restarting both Docker and Galaxy, in case the changes haven't been recognized by one of these services, using the commands:
 ```
 $ sudo service docekr restart
@@ -171,8 +174,15 @@ in your VM instance.
 
 If you are still having issues check that your XML file is formatted properly using the `planemo lint my_tool_xml.xml` command and then restart Docker and Galaxy again.
 
+## When I try to submit my workflow I get an error that says `401 Client Error: Unauthorized`, what should I do?
+Make sure that you are registered as a [Certified User](https://www.synapse.org/#!StandaloneWiki:Certification). If you have not, you must read through the [Synapse tutorial](https://www.synapse.org/#!Help:GettingStarted) and pass the [Certification quiz](https://www.synapse.org/#!Quiz:Certification) to become a Certified User.
+
 ## Can I just submit result files to the Challenge?
 No, you must submit a Galaxy workflow along with all your tool code. For more information look at [3.5.7 - Submitting to the Challenge]
+
+## Is there a limit on how long my tool can run for?
+Yes. If your algorithm take more than 7$ of compute time using Google Compute Engine or longer than 200 hours to run for any one tumour then it will be terminated and you will not be scored on that tumour.
+More details on the pricing for Google Compute Engine go here: [https://cloud.google.com/compute/pricing](https://cloud.google.com/compute/pricing)
 
 # Docker
 ## Do I need to create my own Dockerfile?

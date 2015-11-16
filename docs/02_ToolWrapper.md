@@ -227,7 +227,6 @@ The Outputs (a picture of the Dirichlet process from executing the tool and five
 ###Command Line Call in an XML
 The Command Line Call section of your XML file is where you actually execute your function. There are two aspects of the Command Line Call that are important to remember:
 1. The Command Line Call uses a templating language called Cheetah to pass variables from your inputs into your command. In Cheetah all variables are identified using `$\{variable_name}` (without the backslash).
-TODO: figure out if there is a way to escape the { character
 
 This should be everything most people need to know to write their XML files but for more information on Cheetah you can find documentation at:
 
